@@ -1,15 +1,15 @@
-import React, {useState, useEffect} from 'react';
+import React, { useState, useEffect } from 'react';
 import { AiFillEye, AiFillGithub } from 'react-icons/ai';
-import {motion} from 'framer-motion'
+import { motion } from 'framer-motion';
 
 import { AppWrap, MotionWrap } from '../../wrapper';
-import {urlFor, client} from '../../client';
-import './Work.scss'
+import { urlFor, client } from '../../client';
+import './Work.scss';
 
 const Work = () => {
 
   const [activeFilter, setActiveFilter] = useState('All');
-  const [animateCard, setAnimateCard] = useState({ y: 0, opacity: 1});
+  const [animatecard, setAnimatecard] = useState({ y: 0, opacity: 1});
   const [works, setWorks] = useState([]);
   const [filterWork, setFilterWork] = useState([])
 
@@ -26,10 +26,10 @@ const Work = () => {
 
   const handleWorkFilter = (item) => {
     setActiveFilter(item);
-    setAnimateCard([{y:100, opacity: 0}]);
+    setAnimatecard([{y:100, opacity: 0}]);
 
     setTimeout(() => {
-      setAnimateCard([{ y: 0, opacity: 1 }]);
+      setAnimatecard([{ y: 0, opacity: 1 }]);
 
       if (item === 'All') {
         setFilterWork(works);
@@ -42,7 +42,7 @@ const Work = () => {
     <>
       <h2 className='head-text'> My <span>Portfolio</span></h2>
       <div className="app__work-filter">
-        {['UI/UX', 'Web App', 'Mobile App', 'React JS', 'All'].map((item, index) => (
+        {['All', 'Web App', 'Mobile App'].map((item, index) => (
           <div
             key={index}
             onClick={() => handleWorkFilter(item)}
@@ -54,7 +54,7 @@ const Work = () => {
       </div>
 
       <motion.div
-        animateCard={animateCard}
+        animatecard={animatecard}
         transition={{ duration: 0.5, delayChildren: 0.5}}
         className="app__work-portfolio"
       >
@@ -94,8 +94,9 @@ const Work = () => {
             <div className="app__work-content app__flex">
               <h4 className='bold-text'>{work.title}</h4>
               <p className="p-text" style={{ marginTop: 10 }}>{work.description}</p>
+              <p className="tech">{work.technologies}</p>
 
-              <div className='app__work-tag app__flex'>
+              <div className="app__work-tag app__flex">
                 <p className="p-text">{work.tags[0]}</p>
               </div>
             </div>
@@ -103,11 +104,11 @@ const Work = () => {
         ))}
       </motion.div>
     </>
-  )
-}
+  );
+};
 
 export default AppWrap(
   MotionWrap(Work, 'app__works'),
   'work',
-  'app__primarybg'
+  'app__primarybg',
 );
